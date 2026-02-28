@@ -1,9 +1,7 @@
-import Link from "next/link";
 import {
   BookOpen,
   Code,
   Cpu,
-  HelpCircle,
   LifeBuoy,
   MessageCircle,
   Search,
@@ -19,7 +17,6 @@ const categories = [
     name: "Getting Started",
     description: "Set up your account, get your API key, and make your first request in minutes.",
     href: "https://docs.hanzo.ai/quickstart",
-    external: true,
     featured: true,
   },
   {
@@ -27,7 +24,6 @@ const categories = [
     name: "API Reference",
     description: "Complete reference for the Hanzo AI API. Endpoints, parameters, and examples.",
     href: "https://docs.hanzo.ai/api",
-    external: true,
     featured: true,
   },
   {
@@ -35,7 +31,6 @@ const categories = [
     name: "Hanzo Dev",
     description: "Guides for the AI coding agent. IDE setup, commands, and best practices.",
     href: "https://hanzo.ai/dev",
-    external: false,
     featured: false,
   },
   {
@@ -43,7 +38,6 @@ const categories = [
     name: "Zen Models",
     description: "Learn about the Zen model family — capabilities, pricing, and usage limits.",
     href: "https://hanzo.ai/zen",
-    external: false,
     featured: false,
   },
   {
@@ -51,7 +45,6 @@ const categories = [
     name: "Tutorials",
     description: "Step-by-step guides for common use cases and integrations.",
     href: "https://docs.hanzo.ai/tutorials",
-    external: true,
     featured: false,
   },
   {
@@ -59,18 +52,17 @@ const categories = [
     name: "Support",
     description: "Open a support ticket or contact the team directly.",
     href: "https://hanzo.ai/contact",
-    external: false,
     featured: false,
   },
 ];
 
 const quickLinks = [
-  { label: "API Keys & Billing", href: "https://console.hanzo.ai", external: true },
-  { label: "Status Page", href: "https://hanzo.ai/status", external: false },
-  { label: "Changelog", href: "https://hanzo.ai/changelog", external: false },
-  { label: "Open Source", href: "https://github.com/hanzoai", external: true },
-  { label: "Discord Community", href: "https://discord.gg/hanzo", external: true },
-  { label: "Blog", href: "https://blog.hanzo.ai", external: true },
+  { label: "API Keys & Billing", href: "https://console.hanzo.ai" },
+  { label: "Status Page", href: "https://hanzo.ai/status" },
+  { label: "Changelog", href: "https://hanzo.ai/changelog" },
+  { label: "Open Source", href: "https://github.com/hanzoai" },
+  { label: "Discord Community", href: "https://discord.gg/hanzo" },
+  { label: "Blog", href: "https://blog.hanzo.ai" },
 ];
 
 export default function HelpPage() {
@@ -129,8 +121,14 @@ export default function HelpPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
             {categories.filter(c => c.featured).map((cat) => {
               const Icon = cat.icon;
-              const content = (
-                <div className="group flex flex-col gap-4 p-6 rounded-2xl bg-neutral-900/50 border border-border hover:border-white/20 hover:bg-neutral-800/50 transition-all h-full">
+              return (
+                <a
+                  key={cat.name}
+                  href={cat.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col gap-4 p-6 rounded-2xl bg-neutral-900/50 border border-border hover:border-white/20 hover:bg-neutral-800/50 transition-all"
+                >
                   <div className="flex items-center justify-between">
                     <div className="w-10 h-10 rounded-xl bg-neutral-800 flex items-center justify-center group-hover:bg-neutral-700 transition-colors">
                       <Icon className="h-5 w-5 text-foreground/80 group-hover:text-foreground transition-colors" />
@@ -145,11 +143,6 @@ export default function HelpPage() {
                     Explore
                     <ArrowRight className="h-3.5 w-3.5" />
                   </div>
-                </div>
-              );
-              return (
-                <a key={cat.name} href={cat.href} target="_blank" rel="noopener noreferrer" className="block">
-                  {content}
                 </a>
               );
             })}
@@ -159,8 +152,14 @@ export default function HelpPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-12">
             {categories.filter(c => !c.featured).map((cat) => {
               const Icon = cat.icon;
-              const content = (
-                <div className="group flex items-start gap-3 p-4 rounded-xl bg-neutral-900/30 border border-border/50 hover:border-border hover:bg-neutral-800/40 transition-all h-full">
+              return (
+                <a
+                  key={cat.name}
+                  href={cat.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-start gap-3 p-4 rounded-xl bg-neutral-900/30 border border-border/50 hover:border-border hover:bg-neutral-800/40 transition-all"
+                >
                   <div className="w-8 h-8 rounded-lg bg-neutral-800/60 flex items-center justify-center flex-shrink-0 group-hover:bg-neutral-700/60 transition-colors mt-0.5">
                     <Icon className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors" />
                   </div>
@@ -168,12 +167,8 @@ export default function HelpPage() {
                     <div className="text-sm font-medium text-foreground mb-0.5">{cat.name}</div>
                     <div className="text-xs text-muted-foreground leading-snug">{cat.description}</div>
                   </div>
-                </div>
+                </a>
               );
-              if (cat.external) {
-                return <a key={cat.name} href={cat.href} target="_blank" rel="noopener noreferrer" className="block">{content}</a>;
-              }
-              return <Link key={cat.name} href={cat.href} className="block">{content}</Link>;
             })}
           </div>
 
@@ -181,18 +176,17 @@ export default function HelpPage() {
           <div className="border-t border-border/50 pt-8">
             <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">Quick Links</h3>
             <div className="flex flex-wrap gap-2">
-              {quickLinks.map((link) => {
-                const content = (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border/50 bg-neutral-900/30 text-sm text-muted-foreground hover:text-foreground hover:border-border hover:bg-neutral-800/40 transition-all">
-                    {link.label}
-                    {link.external && <ExternalLink className="h-3 w-3" />}
-                  </span>
-                );
-                if (link.external) {
-                  return <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">{content}</a>;
-                }
-                return <Link key={link.label} href={link.href}>{content}</Link>;
-              })}
+              {quickLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border/50 bg-neutral-900/30 text-sm text-muted-foreground hover:text-foreground hover:border-border hover:bg-neutral-800/40 transition-all"
+                >
+                  {link.label}
+                </a>
+              ))}
             </div>
           </div>
 
@@ -215,13 +209,13 @@ export default function HelpPage() {
                 <MessageCircle className="h-3.5 w-3.5" />
                 Discord
               </a>
-              <Link
+              <a
                 href="https://hanzo.ai/contact"
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-all"
               >
                 Contact Us
                 <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -230,7 +224,7 @@ export default function HelpPage() {
       {/* Footer */}
       <footer className="border-t border-border/50 px-6 py-6 mt-auto">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <span>© 2025 Hanzo AI, Inc. Techstars '17.</span>
+          <span>© 2025 Hanzo AI, Inc. Techstars &apos;17.</span>
           <div className="flex items-center gap-4">
             <a href="https://hanzo.ai/privacy" className="hover:text-foreground transition-colors">Privacy</a>
             <a href="https://hanzo.ai/terms" className="hover:text-foreground transition-colors">Terms</a>
