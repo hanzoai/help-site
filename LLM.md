@@ -1,4 +1,4 @@
-# LLM.md - Hanzo Help
+# Hanzo Help
 
 ## Overview
 Hanzo Help — Guides, docs, and support for Hanzo AI
