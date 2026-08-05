@@ -61,7 +61,7 @@ const quickLinks = [
   { label: "Status Page", href: "https://hanzo.ai/status" },
   { label: "Changelog", href: "https://hanzo.ai/changelog" },
   { label: "Open Source", href: "https://github.com/hanzoai" },
-  { label: "Discord Community", href: "https://discord.gg/hanzo" },
+  { label: "Discord Community", href: "https://discord.gg/CJCyAsm9Vr" },
   { label: "Blog", href: "https://blog.hanzo.ai" },
 ];
 
@@ -201,7 +201,7 @@ export default function HelpPage() {
             </div>
             <div className="flex items-center gap-2">
               <a
-                href="https://discord.gg/hanzo"
+                href="https://discord.gg/CJCyAsm9Vr"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-sm text-foreground hover:bg-accent transition-all font-medium"
