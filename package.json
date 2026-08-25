@@ -10,24 +10,22 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
+    "@hanzo/gui": "^8.2.0",
+    "@hanzo/ui": "^8.4.1",
+    "@react-native/assets-registry": "0.86.0",
     "geist": "^1.4.2",
     "lucide-react": "^0.525.0",
     "next": "15.3.5",
-    "next-themes": "^0.4.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwind-merge": "^3.3.1"
+    "react-native-web": "^0.21.2"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.5",
-    "tailwindcss": "^4",
     "typescript": "^5"
   }
 }

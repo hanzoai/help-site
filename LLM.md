@@ -1,30 +1,65 @@
 # Hanzo Help
 
 ## Overview
-Hanzo Help — Guides, docs, and support for Hanzo AI
+Hanzo Help — Guides, docs, and support for Hanzo AI. A Next.js static export
+(`output: "export"`), one page.
 
 ## Tech Stack
-- **Language**: TypeScript/JavaScript
+- TypeScript, Next 15 (App Router, static export)
+- **UI is `@hanzo/ui` on `@hanzo/gui`.** No Tailwind, no Radix, no `cn()`, no
+  CSS file of our own. Import from the `@hanzo/ui` root barrel only — reaching
+  past it to `@hanzo/gui` resolves a second copy of the runtime.
+- `lucide-react` for glyphs (`size` prop, never a class; they stroke
+  `currentColor`, so colouring the parent `Text` colours the glyph)
 
 ## Build & Run
 ```bash
-pnpm install && pnpm build
-pnpm test
+pnpm install && pnpm build     # writes out/
 ```
 
 ## Structure
 ```
-help/
-  app/
-  next-env.d.ts
-  next.config.ts
-  out/
-  package.json
-  pnpm-lock.yaml
-  postcss.config.mjs
-  public/
-  tsconfig.json
+app/
+  layout.tsx   mounts <Hanzo>, binds the font
+  page.tsx     the page; data arrays + composition
+  link.tsx     Link / Pill / Topic — the three shapes an Anchor wears here
+next.config.ts
 ```
 
-## Key Files
-- `package.json` -- Dependencies and scripts
+## What was learned the hard way
+
+**Resolver.** gui renders through react-native-web, so `next.config.ts` must
+alias `react-native` → `react-native-web` and put `.web.js` ahead of `.js` in
+the extension order (react-native-svg, under the icon set, ships its browser
+implementation that way). Both are stated for webpack AND turbopack so `dev`
+and `build` resolve identically. `@react-native/assets-registry` is pinned to
+**0.86.0** deliberately: 0.87 re-exports from `react-native`, which the alias
+sends to react-native-web, and the build warns on every run.
+
+**Tokens are silently dropped.** A style prop naming a token that does not
+exist emits NO class — no error, no type failure, just an unstyled element.
+`$colorSubtle` cost an hour that way. The real names are `$color`,
+`$background`, `$borderColor(+Hover)`, `$accentBackground`/`$accentColor`, and
+the surface ladder `$sunken $panel $hover $edge $raised $rim $bound $dim $faint
+$soft $quiet $ink`. Muted text is `$soft`. Verify by reading the built CSS: every
+`_`-prefixed class in the output must have a rule.
+
+**`color` is not a prop on a stack.** `XStack`/`YStack` reject it; `Text` owns
+it. Wrap, don't guess.
+
+**Breakpoints are MIN-width** — `$sm` 640, `$md` 768, `$lg` 1024 — so write
+mobile-first: the base is the phone's value and `$md` steps it up. `Section`'s
+own source comment claims max-width; the shipped CSS disagrees and the shipped
+CSS is what renders. A `$md` object passed to a component REPLACES that
+component's own rather than merging, which is how `Section`'s rhythm is
+overridden.
+
+**The font hooks do not work as documented.** `--font-sans-provided` lives
+inside `@layer hanzo.font` and loses to an unlayered `:root{--font-sans:"Zen"}`;
+the root element's `--font-sans` is owned by `@hanzo/appearance`, which clears
+it on mount. Set it on `<body>` — managed by neither. "Zen" ships no
+`@font-face` here, so without this the page renders system-ui.
+
+**Verify in a browser, not in the markup.** The static export carries gui's
+SSR-extracted styles in an inline `<style>`, so it is fully styled with JS off —
+but only a real render catches a card whose text runs out of its frame.
