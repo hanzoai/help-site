@@ -2,7 +2,7 @@
   "name": "@hanzo/help",
   "version": "0.1.0",
   "private": true,
-  "description": "Hanzo Help — Guides, docs, and support for Hanzo AI",
+  "description": "Hanzo Help \u2014 Guides, docs, and support for Hanzo AI",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -10,23 +10,23 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@hanzo/gui": "8.3.0",
-    "@hanzo/ui": "8.27.0",
-    "@react-native/assets-registry": "^0.87.1",
-    "geist": "^1.7.2",
-    "lucide-react": "^1.33.0",
-    "next": "16.3.3",
-    "react": "19.2.8",
-    "react-dom": "19.2.8",
-    "react-native-web": "^0.21.2"
+    "@hanzo/gui": "catalog:",
+    "@hanzo/ui": "catalog:",
+    "@react-native/assets-registry": "catalog:",
+    "geist": "catalog:",
+    "lucide-react": "catalog:",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-native-web": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "26.4.0",
-    "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.5",
-    "eslint": "^10.9.1",
-    "eslint-config-next": "^16.3.3",
-    "typescript": "7.0.2"
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "eslint": "catalog:",
+    "eslint-config-next": "catalog:",
+    "typescript": "catalog:"
   },
   "packageManager": "pnpm@11.24.0"
 }
