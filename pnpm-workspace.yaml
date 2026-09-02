@@ -1,3 +1,5 @@
+allowBuilds:
+  unrs-resolver: set this to true or false
 catalog:
   '@hanzo/gui': '8.3.1'
   '@hanzo/ui': '8.27.2'

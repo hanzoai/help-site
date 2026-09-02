@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
+import { GeistSans } from "@hanzo/font/sans";
+import { GeistMono } from "@hanzo/font/mono";
 import { Hanzo } from "@hanzo/ui";
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
  *
  * On BODY, and both halves of that are measured. The two hooks a page would
  * reach for first are each unusable: `--font-sans-provided` is declared inside
- * `@layer hanzo.font` while a plain `:root { --font-sans: "Zen", … }` is
+ * `@layer hanzo.font` while a plain `:root { --font-sans: Zen, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif}` is
  * unlayered, and unlayered beats layered whatever the order, so the documented
  * hook is never read; and the root element's own `--font-sans` is owned by
  * @hanzo/appearance, which lists it among the properties it clears on mount —
