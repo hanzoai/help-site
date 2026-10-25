@@ -63,7 +63,7 @@ const quickLinks = [
   { label: "Status Page", href: "https://hanzo.ai/status" },
   { label: "Changelog", href: "https://hanzo.ai/changelog" },
   { label: "Open Source", href: "https://github.com/hanzoai" },
-  { label: "Discord Community", href: "https://discord.gg/CJCyAsm9Vr" },
+  { label: "Discord Community", href: "https://discord.gg/XthHQQj" },
   { label: "Blog", href: "https://blog.hanzo.ai" },
 ];
 
@@ -198,7 +198,7 @@ export default function HelpPage() {
             </YStack>
           </XStack>
           <XStack alignItems="center" gap="$2">
-            <Pill href="https://discord.gg/CJCyAsm9Vr" {...blank} color="$color">
+            <Pill href="https://discord.gg/XthHQQj" {...blank} color="$color">
               <MessageCircle size={14} />
               Discord
             </Pill>
