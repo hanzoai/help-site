@@ -13,6 +13,7 @@ import {
 import type { ComponentProps } from "react";
 import { H1, H2, Screen, Separator, Text, XStack, YStack } from "@hanzo/ui";
 import { Link, Pill, Topic, blank } from "./link";
+import { Socials } from "./socials";
 
 const categories = [
   {
@@ -221,6 +222,7 @@ export default function HelpPage() {
         <Text fontSize="$3" color="$soft">
           © 2025 Hanzo AI, Inc. Techstars &apos;17.
         </Text>
+        <Socials />
         <XStack items="center" gap="$4">
           <Link href="https://hanzo.ai/privacy">Privacy</Link>
           <Link href="https://hanzo.ai/terms">Terms</Link>

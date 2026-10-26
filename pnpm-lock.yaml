@@ -12,6 +12,9 @@ catalogs:
     '@hanzo/ui':
       specifier: 8.29.12
       version: 8.29.12
+    '@icons-pack/react-simple-icons':
+      specifier: 13.15.1
+      version: 13.15.1
     '@react-native/assets-registry':
       specifier: ^0.87.1
       version: 0.87.1
@@ -79,6 +82,9 @@ importers:
       '@hanzo/ui':
         specifier: 'catalog:'
         version: 8.29.12(2441c4047bb0930f634bf043f97a045a)
+      '@icons-pack/react-simple-icons':
+        specifier: 'catalog:'
+        version: 13.15.1(react@19.2.8)
       '@react-native/assets-registry':
         specifier: 'catalog:'
         version: 0.87.1(react-native@0.87.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.87.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.18)(react@19.2.8)(supports-color@8.1.1))

@@ -82,3 +82,6 @@ but only a real render catches a card whose text runs out of its frame.
 - Deploy: push to main. `.github/workflows/cicd.yml` runs hanzoai/ci, which
   type-checks, builds `out/` and publishes it as Sites project `hanzo-help`
   (`s3://hanzo-sites/hanzo/hanzo-help`, live at `hanzo-help.hanzo.app`).
+- `app/socials.tsx` is every Hanzo channel, the set hanzo.ai's footer and JSON-LD
+  name, drawn in the footer as marks with accessible names. Discord is
+  discord.gg/XthHQQj; discord.gg/hanzo is another server.
