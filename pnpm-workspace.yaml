@@ -1,10 +1,10 @@
 allowBuilds:
   unrs-resolver: false
 catalog:
-  '@hanzo/event': '0.3.58'
+  '@hanzo/event': '0.3.61'
   '@hanzo/font': '1.9.2'
   '@hanzo/gui': '8.3.5'
-  '@hanzo/ui': '8.29.12'
+  '@hanzo/ui': '8.29.14'
   '@icons-pack/react-simple-icons': '13.15.1'
   '@react-native/assets-registry': '^0.87.1'
   '@types/node': '26.4.0'
@@ -20,13 +20,17 @@ catalog:
   'react-native-web': '^0.21.2'
   'typescript': '6.0.3'
 
+minimumReleaseAgeExclude:
+  - '@hanzo/event@0.3.61'
+  - '@hanzo/ui@8.29.14'
+
 # One gui and one event client in the tree, whatever asked for them. @hanzo/ui's
 # gui peers resolve to the newest match unless told, and a second gui is a second
 # configuration: a component renders under one and looks for its theme in the
 # other. A second @hanzo/event is a second consent store and keyring, so the
 # banner's answer would not reach the client that sends.
 overrides:
-  '@hanzo/event': '0.3.58'
+  '@hanzo/event': '0.3.61'
   '@hanzo/gui': '8.3.5'
   '@hanzogui/animations-css': '8.3.5'
   '@hanzogui/config': '8.3.5'

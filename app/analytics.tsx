@@ -2,7 +2,7 @@
 
 import { useEffect, type ReactNode } from 'react'
 import { startTags } from '@hanzo/event'
-import { AnalyticsProvider, useConsent, usePageview } from '@hanzo/event/react'
+import { AnalyticsProvider, usePageview } from '@hanzo/event/react'
 import { Consent } from '@hanzo/ui/consent'
 import { usePathname } from 'next/navigation'
 
@@ -59,13 +59,12 @@ function Tags() {
  * Telemetry for hanzo.help, mounted once in the root layout, inside <Hanzo> so the
  * banner is themed. The provider owns the one @hanzo/event client: the first
  * pageview, error capture and the unload flush; <Pageview> adds one per route
- * change. The stream runs while the visitor allows analytics, and <Consent> is
- * the one banner that asks.
+ * change. The stream is first party and runs for every visitor; consent gates
+ * the third parties alone (startTags), and <Consent> is the one banner that asks.
  */
 export function Analytics({ children }: { children: ReactNode }) {
-  const consent = useConsent()
   return (
-    <AnalyticsProvider config={{ product: 'site', host: HOST, ingestKey: KEY, enabled: consent.analytics }}>
+    <AnalyticsProvider config={{ product: 'site', host: HOST, ingestKey: KEY }}>
       <Tags />
       <Pageview />
       {children}
