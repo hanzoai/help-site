@@ -10,7 +10,8 @@ import {
   ArrowRight,
   ExternalLink,
 } from "lucide-react";
-import { H1, H2, Screen, Section, Separator, Text, XStack, YStack } from "@hanzo/ui";
+import type { ComponentProps } from "react";
+import { H1, H2, Screen, Separator, Text, XStack, YStack } from "@hanzo/ui";
 import { Link, Pill, Topic, blank } from "./link";
 
 const categories = [
@@ -71,34 +72,34 @@ const quickLinks = [
 const MEASURE = 1024;
 
 /**
- * `Section` owns the page's vertical rhythm and states it TWICE — a base and a
- * `$md` step — so overriding only the base leaves the step to win it back.
- * Passing `$md` REPLACES Section's rather than merging with it, which is what
- * is wanted: here only the gutter moves, and the chrome keeps its height.
- *
- * Breakpoints are MIN-width in the config this package ships ($sm 640, $md 768,
- * $lg 1024), so the base value is the phone's and `$md` steps it up. Section's
- * own comment says these are max-width queries; the shipped CSS says otherwise,
- * and the shipped CSS is what renders.
+ * Band — one full-bleed row of the page holding the centred measure. The outer
+ * box carries the gutter, the rhythm and the rule, so a hairline runs the width
+ * of the window; `inner` lays out the measure. Breakpoints are MIN-width ($md
+ * 768), so the base gutter is the phone's and `$md` steps it up.
  */
-const gutter = { paddingHorizontal: "$4", $md: { paddingHorizontal: "$5" } } as const;
+type Stack = ComponentProps<typeof YStack>;
+const Band = ({ inner, children, ...props }: Stack & { inner?: Stack }) => (
+  <YStack width="100%" px="$4" $md={{ px: "$5" }} {...props}>
+    <YStack width="100%" maxW={MEASURE} mx="auto" {...inner}>
+      {children}
+    </YStack>
+  </YStack>
+);
 
 export default function HelpPage() {
   return (
     <Screen>
-      <Section
-        maxWidth={MEASURE}
-        {...gutter}
-        paddingVertical="$4"
+      <Band
+        py="$4"
         borderBottomWidth={1}
         borderBottomColor="$borderColor"
-        innerProps={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}
+        inner={{ flexDirection: "row", items: "center", justify: "space-between" }}
       >
         <Link href="https://hanzo.ai" fontSize="$4" color="$color" hoverStyle={{ opacity: 0.8 }}>
           <Text fontWeight="600">hanzo</Text>
           <Text color="$soft"> / help</Text>
         </Link>
-        <XStack alignItems="center" gap="$4">
+        <XStack items="center" gap="$4">
           <Link href="https://hanzo.ai">hanzo.ai</Link>
           <Link href="https://hanzo.community">Community</Link>
           <Pill href="https://docs.hanzo.ai" {...blank} color="$color">
@@ -106,27 +107,27 @@ export default function HelpPage() {
             Docs
           </Pill>
         </XStack>
-      </Section>
+      </Band>
 
-      <Section maxWidth={MEASURE} {...gutter} paddingTop="$11" paddingBottom="$10">
-        <YStack alignItems="center" gap="$4" marginBottom="$8">
-          <H1 fontSize="$10" $md={{ fontSize: "$11" }} fontWeight="700" textAlign="center" color="$color">
+      <Band pt="$11" pb="$10">
+        <YStack items="center" gap="$4" mb="$8">
+          <H1 fontSize="$10" $md={{ fontSize: "$11" }} fontWeight="700" text="center" color="$color">
             How can we help?
           </H1>
-          <Text fontSize="$6" color="$soft" textAlign="center" maxWidth={560}>
+          <Text fontSize="$6" color="$soft" text="center" maxW={560}>
             Guides, documentation, and support for all Hanzo AI products.
           </Text>
           <Text
             display="flex"
             flexDirection="row"
-            alignItems="center"
+            items="center"
             gap="$2"
-            paddingHorizontal="$4"
-            paddingVertical="$2.5"
-            borderRadius="$5"
+            px="$4"
+            py="$2.5"
+            rounded="$5"
             borderWidth={1}
             borderColor="$borderColor"
-            backgroundColor="$panel"
+            bg="$panel"
             fontSize="$3"
             color="$soft"
           >
@@ -139,29 +140,29 @@ export default function HelpPage() {
           </Text>
         </YStack>
 
-        <XStack flexWrap="wrap" gap="$4" marginBottom="$5">
+        <XStack flexWrap="wrap" gap="$4" mb="$5">
           {categories
             .filter((c) => c.featured)
             .map((cat) => (
-              <XStack key={cat.name} flexGrow={1} flexBasis={280}>
+              <XStack key={cat.name} grow={1} flexBasis={280}>
                 <Topic {...cat} />
               </XStack>
             ))}
         </XStack>
 
-        <XStack flexWrap="wrap" gap="$3" marginBottom="$8">
+        <XStack flexWrap="wrap" gap="$3" mb="$8">
           {categories
             .filter((c) => !c.featured)
             .map((cat) => (
-              <XStack key={cat.name} flexGrow={1} flexBasis={220}>
+              <XStack key={cat.name} grow={1} flexBasis={220}>
                 <Topic {...cat} />
               </XStack>
             ))}
         </XStack>
 
-        <Separator marginBottom="$6" />
+        <Separator mb="$6" />
 
-        <H2 fontSize="$1" fontWeight="600" color="$soft" textTransform="uppercase" letterSpacing={1} marginBottom="$4">
+        <H2 fontSize="$1" fontWeight="600" color="$soft" textTransform="uppercase" letterSpacing={1} mb="$4">
           Quick Links
         </H2>
         <XStack flexWrap="wrap" gap="$2">
@@ -173,18 +174,18 @@ export default function HelpPage() {
         </XStack>
 
         <XStack
-          marginTop="$8"
-          padding="$5"
-          borderRadius="$5"
+          mt="$8"
+          p="$5"
+          rounded="$5"
           borderWidth={1}
           borderColor="$borderColor"
-          backgroundColor="$panel"
+          bg="$panel"
           flexWrap="wrap"
-          alignItems="center"
-          justifyContent="space-between"
+          items="center"
+          justify="space-between"
           gap="$4"
         >
-          <XStack alignItems="center" gap="$3">
+          <XStack items="center" gap="$3">
             <Text color="$soft">
               <MessageCircle size={20} />
             </Text>
@@ -197,7 +198,7 @@ export default function HelpPage() {
               </Text>
             </YStack>
           </XStack>
-          <XStack alignItems="center" gap="$2">
+          <XStack items="center" gap="$2">
             <Pill href="https://discord.gg/XthHQQj" {...blank} color="$color">
               <MessageCircle size={14} />
               Discord
@@ -208,32 +209,24 @@ export default function HelpPage() {
             </Pill>
           </XStack>
         </XStack>
-      </Section>
+      </Band>
 
-      <Section
-        maxWidth={MEASURE}
-        {...gutter}
-        marginTop="auto"
-        paddingVertical="$5"
+      <Band
+        mt="auto"
+        py="$5"
         borderTopWidth={1}
         borderTopColor="$borderColor"
-        innerProps={{
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "$4",
-        }}
+        inner={{ flexDirection: "row", flexWrap: "wrap", items: "center", justify: "space-between", gap: "$4" }}
       >
         <Text fontSize="$3" color="$soft">
           © 2025 Hanzo AI, Inc. Techstars &apos;17.
         </Text>
-        <XStack alignItems="center" gap="$4">
+        <XStack items="center" gap="$4">
           <Link href="https://hanzo.ai/privacy">Privacy</Link>
           <Link href="https://hanzo.ai/terms">Terms</Link>
           <Link href="https://hanzo.ai/contact">Contact</Link>
         </XStack>
-      </Section>
+      </Band>
     </Screen>
   );
 }

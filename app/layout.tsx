@@ -1,8 +1,10 @@
+import "@hanzo/ui/styles.css";
 import type { CSSProperties, ReactNode } from "react";
 import type { Metadata } from "next";
-import { GeistSans } from "@hanzo/font/sans";
-import { GeistMono } from "@hanzo/font/mono";
+import { Zen } from "@hanzo/font/sans";
+import { ZenMono } from "@hanzo/font/mono";
 import { Hanzo } from "@hanzo/ui";
+import { Analytics } from "./analytics";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hanzo.help"),
@@ -30,20 +32,22 @@ export const metadata: Metadata = {
  * next/font emits the @font-face and the preload from the import either way.
  */
 const font = {
-  "--font-sans": GeistSans.style.fontFamily,
-  "--font-mono": GeistMono.style.fontFamily,
+  "--font-sans": Zen.style.fontFamily,
+  "--font-mono": ZenMono.style.fontFamily,
 } as CSSProperties;
 
 /**
  * `Hanzo` is the whole mount — gui config, stylesheet and root theme — and it
  * styles `body` itself, ground and ink included, so the document carries no
- * classes of its own.
+ * classes of its own. `Analytics` sits inside it so the consent banner is themed.
  */
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body style={font}>
-        <Hanzo theme="dark">{children}</Hanzo>
+        <Hanzo theme="dark">
+          <Analytics>{children}</Analytics>
+        </Hanzo>
       </body>
     </html>
   );

@@ -1,0 +1,16 @@
+# Read by hanzoai/ci (.github/workflows/cicd.yml). A Next static export: each
+# push to main type-checks, builds out/ and publishes it to the Sites plane as
+# project `hanzo-help`, the project whose key the page sends with.
+test:
+  - name: typecheck
+    run: pnpm install --frozen-lockfile && pnpm typecheck
+
+site:
+  slug: hanzo-help
+  dir: out
+  build: pnpm install --frozen-lockfile && pnpm build
+  on: [main]
+
+# The KMS tenant that holds the Sites plane deploy token.
+kms:
+  org: hanzo

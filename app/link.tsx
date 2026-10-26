@@ -35,28 +35,28 @@ export const Pill = ({ solid, ...props }: Props & { solid?: boolean }) => (
   <Anchor
     display="flex"
     flexDirection="row"
-    alignItems="center"
+    items="center"
     gap="$1.5"
-    paddingHorizontal="$3"
-    paddingVertical="$1.5"
-    borderRadius="$10"
+    px="$3"
+    py="$1.5"
+    rounded="$10"
     borderWidth={1}
     fontSize="$3"
     fontWeight="500"
     textDecorationLine="none"
     {...(solid
       ? {
-          backgroundColor: "$accentBackground",
+          bg: "$accentBackground",
           borderColor: "$colorTransparent",
           color: "$accentColor",
           hoverStyle: { opacity: 0.9 },
         }
       : {
-          backgroundColor: "$panel",
+          bg: "$panel",
           borderColor: "$borderColor",
           color: "$soft",
           hoverStyle: {
-            backgroundColor: "$hover",
+            bg: "$hover",
             borderColor: "$borderColorHover",
             color: "$color",
           },
@@ -93,27 +93,27 @@ export function Topic({
       {...blank}
       group
       display="flex"
-      flexGrow={1}
+      grow={1}
       flexDirection={featured ? "column" : "row"}
-      alignItems={featured ? "stretch" : "flex-start"}
+      items={featured ? "stretch" : "flex-start"}
       gap={featured ? "$4" : "$3"}
-      padding={featured ? "$5" : "$4"}
-      borderRadius="$5"
+      p={featured ? "$5" : "$4"}
+      rounded="$5"
       borderWidth={1}
       borderColor="$borderColor"
-      backgroundColor="$panel"
+      bg="$panel"
       textDecorationLine="none"
-      hoverStyle={{ backgroundColor: "$hover", borderColor: "$borderColorHover" }}
+      hoverStyle={{ bg: "$hover", borderColor: "$borderColorHover" }}
     >
-      <XStack alignItems="center" justifyContent="space-between" flexShrink={0}>
+      <XStack items="center" justify="space-between" shrink={0}>
         <Text
           display="flex"
-          alignItems="center"
-          justifyContent="center"
+          items="center"
+          justify="center"
           width={featured ? 40 : 32}
           height={featured ? 40 : 32}
-          borderRadius="$3"
-          backgroundColor="$raised"
+          rounded="$3"
+          bg="$raised"
           color="$soft"
           $group-hover={{ color: "$color" }}
         >
@@ -128,7 +128,7 @@ export function Topic({
       {/* Shrinkable, or the compact row's text runs straight out of the card:
           a flex item's automatic minimum is its content, so it refuses to
           narrow and the words are clipped rather than wrapped. */}
-      <YStack gap={featured ? "$1" : "$0.5"} flexShrink={1} minWidth={0}>
+      <YStack gap={featured ? "$1" : "$0.5"} shrink={1} minW={0}>
         <Text fontSize={featured ? "$6" : "$3"} fontWeight="600" color="$color">
           {name}
         </Text>
@@ -140,9 +140,9 @@ export function Topic({
         <Text
           display="flex"
           flexDirection="row"
-          alignItems="center"
+          items="center"
           gap="$1.5"
-          marginTop="auto"
+          mt="auto"
           fontSize="$3"
           fontWeight="500"
           color="$soft"
