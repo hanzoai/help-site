@@ -29,6 +29,17 @@ const DOMAINS = [
   'pay.hanzo.ai',
 ]
 
+/**
+ * One client. @hanzo/ui's components report through @hanzogui/telemetry, whose
+ * ambient client sends its own pageview under the host's org key, or none: a
+ * second stream beside the provider's, misfiled or refused. It is switched off
+ * here, at module scope, because it is built on first use during render.
+ */
+if (typeof globalThis !== 'undefined') {
+  const g = globalThis as { __HANZO_TELEMETRY__?: { enabled?: boolean } }
+  g.__HANZO_TELEMETRY__ = { ...g.__HANZO_TELEMETRY__, enabled: false }
+}
+
 function Pageview() {
   usePageview(usePathname())
   return null
