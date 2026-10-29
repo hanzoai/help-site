@@ -20,11 +20,30 @@ pnpm install && pnpm build     # writes out/
 ## Structure
 ```
 app/
-  layout.tsx   mounts <Hanzo>, binds the font
-  page.tsx     the page; data arrays + composition, Band (full-bleed row + measure)
-  analytics.tsx  event client, tag manager, consent banner
-  link.tsx     Link / Pill / Topic — the three shapes an Anchor wears here
+  document.tsx          <html lang dir>, the font, <Hanzo>, analytics
+  (default)/            English, at /
+  (locale)/[locale]/    every other language
+  help-page.tsx         the page; data arrays + composition, Band
+  language.tsx          language switcher (a disclosure of links)
+  analytics.tsx         event client, tag manager, consent banner
+  link.tsx              Link / Pill / Topic
+lib/i18n/               catalogs, fallback, hreflang
+messages/               one JSON catalog per locale; see messages/README.md
 next.config.ts
+```
+
+## Languages
+
+English is the source and the default, at `/`. The other locales are path
+prefixes: `es`, `fr`, `de`, `it`, `pt-BR`, `ru`, `tr`, `ar`, `hi`, `id`, `vi`,
+`th`, `ja`, `ko`, `zh-CN`, `zh-TW`. Copy is authored with `phrase()`; `t()`
+reads `messages/<locale>.json` and a missing key renders the English.
+`@hanzo/i18n` supplies that fallback, `dir`, and the hreflang set. Arabic is
+`dir="rtl"`. There is no article tree in this repo.
+
+```bash
+pnpm check:i18n     # missing keys, placeholders, protected names
+pnpm translate      # fill gaps; HANZO_API_KEY, see messages/README.md
 ```
 
 ## What was learned the hard way

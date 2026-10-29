@@ -9,6 +9,9 @@ catalogs:
     '@hanzo/font':
       specifier: 1.9.2
       version: 1.9.2
+    '@hanzo/i18n':
+      specifier: 0.5.4
+      version: 0.5.4
     '@hanzo/ui':
       specifier: 8.29.14
       version: 8.29.14
@@ -79,6 +82,9 @@ importers:
       '@hanzo/gui':
         specifier: 8.3.5
         version: 8.3.5(react-dom@19.2.8(react@19.2.8))(react-native@0.87.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.87.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.2.18)(react@19.2.8)(supports-color@8.1.1))(react@19.2.8)
+      '@hanzo/i18n':
+        specifier: 'catalog:'
+        version: 0.5.4(react@19.2.8)
       '@hanzo/ui':
         specifier: 'catalog:'
         version: 8.29.14(80e8ed8a75e745fa70ed75f1fa24e057)
@@ -588,6 +594,14 @@ packages:
     hasBin: true
     peerDependencies:
       react: '>=19.2.8'
+
+  '@hanzo/i18n@0.5.4':
+    resolution: {integrity: sha512-g5QY0u2q7PMSbp+yk7EZRQWdj0b87fh9m8QH1oVxsHUS0EbeCh1jyE10ZefWnPChxraZN+HgokTMdX+nx3sl+A==}
+    peerDependencies:
+      react: '>=18'
+    peerDependenciesMeta:
+      react:
+        optional: true
 
   '@hanzo/logo@1.0.26':
     resolution: {integrity: sha512-acPRsdTD/pfsDLUias989cDZCCg4Q9rCCrlOWVqlAzcN7xyoi3Vl4DjM7Z+feOL5SDPxWY1M0hJn9B1xqGjK4g==}
@@ -4463,6 +4477,10 @@ snapshots:
     transitivePeerDependencies:
       - react-dom
       - react-native
+
+  '@hanzo/i18n@0.5.4(react@19.2.8)':
+    optionalDependencies:
+      react: 19.2.8
 
   '@hanzo/logo@1.0.26(react@19.2.8)':
     optionalDependencies:

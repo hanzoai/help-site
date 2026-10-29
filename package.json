@@ -2,18 +2,21 @@
   "name": "@hanzo/help",
   "version": "0.1.0",
   "private": true,
-  "description": "Hanzo Help \u2014 Guides, docs, and support for Hanzo AI",
+  "description": "Hanzo Help — Guides, docs, and support for Hanzo AI",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "node scripts/check-messages.mjs && next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "node_modules/tsgo/bin/tsc --noEmit --incremental false"
+    "typecheck": "node_modules/tsgo/bin/tsc --noEmit --incremental false",
+    "check:i18n": "node scripts/check-messages.mjs",
+    "translate": "node scripts/translate.mjs"
   },
   "dependencies": {
     "@hanzo/event": "catalog:",
     "@hanzo/font": "catalog:",
     "@hanzo/gui": "catalog:",
+    "@hanzo/i18n": "catalog:",
     "@hanzo/ui": "catalog:",
     "@icons-pack/react-simple-icons": "catalog:",
     "@react-native/assets-registry": "catalog:",
