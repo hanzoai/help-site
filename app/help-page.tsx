@@ -1,3 +1,4 @@
+import type { ComponentProps } from "react";
 import {
   BookOpen,
   Code,
@@ -10,63 +11,68 @@ import {
   ArrowRight,
   ExternalLink,
 } from "lucide-react";
-import type { ComponentProps } from "react";
 import { H1, H2, Screen, Separator, Text, XStack, YStack } from "@hanzo/ui";
+import { copy } from "@/lib/i18n/copy";
+import { ltr, mirror } from "@/lib/i18n/marks";
+import type { Locale } from "@/lib/i18n/locales";
+import { t } from "@/lib/i18n/messages";
+import { Rich } from "@/lib/i18n/rich";
 import { Link, Pill, Topic, blank } from "./link";
+import { LanguageSwitcher } from "./language";
 import { Socials } from "./socials";
 
 const categories = [
   {
     icon: Zap,
-    name: "Getting Started",
-    description: "Set up your account, get your API key, and make your first request in minutes.",
+    name: copy.gettingStarted,
+    description: copy.gettingStartedBody,
     href: "https://docs.hanzo.ai/quickstart",
     featured: true,
   },
   {
     icon: Code,
-    name: "API Reference",
-    description: "Complete reference for the Hanzo AI API. Endpoints, parameters, and examples.",
+    name: copy.api,
+    description: copy.apiBody,
     href: "https://docs.hanzo.ai/api",
     featured: true,
   },
   {
     icon: Terminal,
-    name: "Hanzo Dev",
-    description: "Guides for the AI coding agent. IDE setup, commands, and best practices.",
+    name: copy.dev,
+    description: copy.devBody,
     href: "https://hanzo.ai/dev",
     featured: false,
   },
   {
     icon: Cpu,
-    name: "Zen Models",
-    description: "Learn about the Zen model family — capabilities, pricing, and usage limits.",
+    name: copy.zen,
+    description: copy.zenBody,
     href: "https://hanzo.ai/zen",
     featured: false,
   },
   {
     icon: BookOpen,
-    name: "Tutorials",
-    description: "Step-by-step guides for common use cases and integrations.",
+    name: copy.tutorials,
+    description: copy.tutorialsBody,
     href: "https://docs.hanzo.ai/tutorials",
     featured: false,
   },
   {
     icon: LifeBuoy,
-    name: "Support",
-    description: "Open a support ticket or contact the team directly.",
+    name: copy.support,
+    description: copy.supportBody,
     href: "https://hanzo.ai/contact",
     featured: false,
   },
 ];
 
 const quickLinks = [
-  { label: "API Keys & Billing", href: "https://console.hanzo.ai" },
-  { label: "Status Page", href: "https://hanzo.ai/status" },
-  { label: "Changelog", href: "https://hanzo.ai/changelog" },
-  { label: "Open Source", href: "https://github.com/hanzoai" },
-  { label: "Discord Community", href: "https://discord.gg/XthHQQj" },
-  { label: "Blog", href: "https://blog.hanzo.ai" },
+  { label: copy.billing, href: "https://console.hanzo.ai" },
+  { label: copy.status, href: "https://hanzo.ai/status" },
+  { label: copy.changelog, href: "https://hanzo.ai/changelog" },
+  { label: copy.openSource, href: "https://github.com/hanzoai" },
+  { label: copy.discordCommunity, href: "https://discord.gg/XthHQQj" },
+  { label: copy.blog, href: "https://blog.hanzo.ai" },
 ];
 
 /** The centred measure the header, the body and the footer all share. */
@@ -87,42 +93,58 @@ const Band = ({ inner, children, ...props }: Stack & { inner?: Stack }) => (
   </YStack>
 );
 
-export default function HelpPage() {
+export function HelpPage({ locale }: { locale: Locale }) {
+  const say = (source: string) => t(locale, source);
+  const explore = say(copy.explore);
+
   return (
     <Screen>
       <Band
+        position="relative"
+        z={20}
         py="$4"
         borderBottomWidth={1}
         borderBottomColor="$borderColor"
-        inner={{ flexDirection: "row", items: "center", justify: "space-between" }}
+        inner={{
+          flexDirection: "row",
+          flexWrap: "wrap",
+          items: "center",
+          justify: "space-between",
+          gap: "$3",
+        }}
       >
-        <Link href="https://hanzo.ai" fontSize="$4" color="$color" hoverStyle={{ opacity: 0.8 }}>
+        <Link href="https://hanzo.ai" {...ltr} fontSize="$4" color="$color" hoverStyle={{ opacity: 0.8 }}>
           <Text fontWeight="600">hanzo</Text>
-          <Text color="$soft"> / help</Text>
+          <Text color="$soft"> / {say(copy.help)}</Text>
         </Link>
-        <XStack items="center" gap="$4">
-          <Link href="https://hanzo.ai">hanzo.ai</Link>
-          <Link href="https://hanzo.community">Community</Link>
+        <XStack items="center" gap="$4" flexWrap="wrap">
+          <Link href="https://hanzo.ai" {...ltr}>
+            hanzo.ai
+          </Link>
+          <Link href="https://hanzo.community">{say(copy.community)}</Link>
           <Pill href="https://docs.hanzo.ai" {...blank} color="$color">
             <BookOpen size={14} />
-            Docs
+            {say(copy.docs)}
           </Pill>
+          <LanguageSwitcher locale={locale} />
         </XStack>
       </Band>
 
       <Band pt="$11" pb="$10">
         <YStack items="center" gap="$4" mb="$8">
           <H1 fontSize="$10" $md={{ fontSize: "$11" }} fontWeight="700" text="center" color="$color">
-            How can we help?
+            {say(copy.heroTitle)}
           </H1>
           <Text fontSize="$6" color="$soft" text="center" maxW={560}>
-            Guides, documentation, and support for all Hanzo AI products.
+            {say(copy.heroSubtitle)}
           </Text>
           <Text
             display="flex"
             flexDirection="row"
             items="center"
+            flexWrap="wrap"
             gap="$2"
+            maxW="100%"
             px="$4"
             py="$2.5"
             rounded="$5"
@@ -133,30 +155,62 @@ export default function HelpPage() {
             color="$soft"
           >
             <Search size={16} />
-            Search the docs at
-            <Link href="https://docs.hanzo.ai" {...blank} color="$color" fontWeight="500">
-              docs.hanzo.ai
-            </Link>
-            <ExternalLink size={12} />
+            <Text shrink={1} minW={0}>
+              <Rich
+                locale={locale}
+                source={copy.search}
+                values={{
+                  docs: (
+                    <Link
+                      href="https://docs.hanzo.ai"
+                      {...blank}
+                      {...ltr}
+                      display="inline-flex"
+                      flexDirection="row"
+                      items="center"
+                      gap="$1"
+                      color="$color"
+                      fontWeight="500"
+                    >
+                      docs.hanzo.ai
+                      <ExternalLink size={12} />
+                    </Link>
+                  ),
+                }}
+              />
+            </Text>
           </Text>
         </YStack>
 
         <XStack flexWrap="wrap" gap="$4" mb="$5">
           {categories
-            .filter((c) => c.featured)
-            .map((cat) => (
-              <XStack key={cat.name} grow={1} flexBasis={280}>
-                <Topic {...cat} />
+            .filter((item) => item.featured)
+            .map((item) => (
+              <XStack key={item.href} grow={1} flexBasis={280}>
+                <Topic
+                  icon={item.icon}
+                  name={say(item.name)}
+                  description={say(item.description)}
+                  href={item.href}
+                  featured
+                  explore={explore}
+                />
               </XStack>
             ))}
         </XStack>
 
         <XStack flexWrap="wrap" gap="$3" mb="$8">
           {categories
-            .filter((c) => !c.featured)
-            .map((cat) => (
-              <XStack key={cat.name} grow={1} flexBasis={220}>
-                <Topic {...cat} />
+            .filter((item) => !item.featured)
+            .map((item) => (
+              <XStack key={item.href} grow={1} flexBasis={220}>
+                <Topic
+                  icon={item.icon}
+                  name={say(item.name)}
+                  description={say(item.description)}
+                  href={item.href}
+                  explore={explore}
+                />
               </XStack>
             ))}
         </XStack>
@@ -164,12 +218,12 @@ export default function HelpPage() {
         <Separator mb="$6" />
 
         <H2 fontSize="$1" fontWeight="600" color="$soft" textTransform="uppercase" letterSpacing={1} mb="$4">
-          Quick Links
+          {say(copy.quickLinks)}
         </H2>
         <XStack flexWrap="wrap" gap="$2">
           {quickLinks.map((link) => (
-            <Pill key={link.label} href={link.href} {...blank}>
-              {link.label}
+            <Pill key={link.href} href={link.href} {...blank}>
+              {say(link.label)}
             </Pill>
           ))}
         </XStack>
@@ -190,23 +244,23 @@ export default function HelpPage() {
             <Text color="$soft">
               <MessageCircle size={20} />
             </Text>
-            <YStack gap="$0.5">
+            <YStack gap="$0.5" shrink={1} minW={0}>
               <Text fontSize="$3" fontWeight="500" color="$color">
-                Still need help?
+                {say(copy.stillNeedHelp)}
               </Text>
               <Text fontSize="$1" color="$soft">
-                Our team is available on Discord and email.
+                {say(copy.stillNeedHelpBody)}
               </Text>
             </YStack>
           </XStack>
           <XStack items="center" gap="$2">
             <Pill href="https://discord.gg/XthHQQj" {...blank} color="$color">
               <MessageCircle size={14} />
-              Discord
+              {say(copy.discord)}
             </Pill>
             <Pill href="https://hanzo.ai/contact" solid>
-              Contact Us
-              <ArrowRight size={14} />
+              {say(copy.contactUs)}
+              <ArrowRight size={14} {...mirror} />
             </Pill>
           </XStack>
         </XStack>
@@ -219,14 +273,14 @@ export default function HelpPage() {
         borderTopColor="$borderColor"
         inner={{ flexDirection: "row", flexWrap: "wrap", items: "center", justify: "space-between", gap: "$4" }}
       >
-        <Text fontSize="$3" color="$soft">
-          © 2025 Hanzo AI, Inc. Techstars &apos;17.
+        <Text fontSize="$3" color="$soft" {...ltr}>
+          {say(copy.copyright)}
         </Text>
-        <Socials />
+        <Socials label={say(copy.socialNav)} />
         <XStack items="center" gap="$4">
-          <Link href="https://hanzo.ai/privacy">Privacy</Link>
-          <Link href="https://hanzo.ai/terms">Terms</Link>
-          <Link href="https://hanzo.ai/contact">Contact</Link>
+          <Link href="https://hanzo.ai/privacy">{say(copy.privacy)}</Link>
+          <Link href="https://hanzo.ai/terms">{say(copy.terms)}</Link>
+          <Link href="https://hanzo.ai/contact">{say(copy.contact)}</Link>
         </XStack>
       </Band>
     </Screen>
