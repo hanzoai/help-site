@@ -70,7 +70,8 @@ but only a real render catches a card whose text runs out of its frame.
 - `app/analytics.tsx` is the docs.hanzo.ai pattern: `@hanzo/event`'s provider
   sends the pageview to `POST api.hanzo.ai/v1/event` (always: it is first party) with this site's own
   publishable key (cloud project `hanzo-help`), `startTags` loads GA4 and the Meta
-  pixel from cloud (`GET /v1/project/tags`) once the visitor consents, and
+  pixel from cloud (`GET /v1/project/tags`) under cloud's rule for the visitor's
+  region (/event 0.3.63: at once in the US, on consent in the EU), and
   `@hanzo/ui/consent` is the banner. No tag id lives in this repo; the key is
   stated because @hanzo/event's SITE_KEY table does not list hanzo.help.
 - `@hanzo/ui/styles.css` is imported in the layout. Without it the export ships
