@@ -23,8 +23,8 @@ export const socials: { label: string; href: string; icon: ComponentType<BrandPr
 ];
 
 /** The channels as a row of marks. The link carries the name; the mark is drawn, not read. */
-export const Socials = () => (
-  <XStack render="nav" aria-label="Hanzo on social media" items="center" gap="$3.5" flexWrap="wrap">
+export const Socials = ({ label }: { label: string }) => (
+  <XStack render="nav" aria-label={label} items="center" gap="$3.5" flexWrap="wrap">
     {socials.map(({ label, href, icon: Icon }) => (
       <Link key={label} href={href} {...blank} aria-label={label} display="flex">
         <Icon size={16} aria-hidden />

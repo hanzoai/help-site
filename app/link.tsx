@@ -2,6 +2,7 @@ import type { ComponentProps } from "react";
 import type { LucideIcon } from "lucide-react";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { Anchor, Text, XStack, YStack } from "@hanzo/ui";
+import { mirror } from "@/lib/i18n/marks";
 
 /**
  * Every link on the page is an `Anchor`. The three below are the three shapes
@@ -80,12 +81,14 @@ export function Topic({
   description,
   href,
   featured,
+  explore,
 }: {
   icon: LucideIcon;
   name: string;
   description: string;
   href: string;
   featured?: boolean;
+  explore: string;
 }) {
   return (
     <Anchor
@@ -148,8 +151,8 @@ export function Topic({
           color="$soft"
           $group-hover={{ color: "$color" }}
         >
-          Explore
-          <ArrowRight size={14} />
+          {explore}
+          <ArrowRight size={14} {...mirror} />
         </Text>
       )}
     </Anchor>

@@ -22,6 +22,9 @@ const extensions = [".web.tsx", ".web.ts", ".web.jsx", ".web.js"];
 
 const nextConfig: NextConfig = {
   output: "export",
+  // Each locale is a directory index (`/es/index.html`). A static host can serve
+  // that without a rewrite; `/es.html` beside an `/es/` payload folder cannot.
+  trailingSlash: true,
   reactStrictMode: true,
   // Turbopack applies the extension list to the project and to transpiled
   // packages, never to the rest of node_modules. react-native-svg (under the
